@@ -1,0 +1,341 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+
+{% block title %}Home{% endblock %}
+{% block content %}
+<!-- Trending Area Start -->
+<div class="trending-area fix pt-25 gray-bg">
+    <div class="container">
+        <div class="trending-main">
+            <div class="row">
+                <div class="col-lg-8">
+                    <!-- Trending Top -->
+                    <div class="slider-active">
+                        {% for mr in most_recents %}
+                            {% if forloop.first %}
+                                <!-- Single -->
+                                <div class="single-slider">
+                                    <div class="trending-top mb-30">
+                                        <div class="trend-top-img">
+                                            <img src="{{ mr.image.url }}" alt="">
+                                            <div class="trend-top-cap">
+                                                {% for cat in mr.categories.all %}
+                                                    <span class="bgr" data-animation="fadeInUp" data-delay=".2s" data-duration="1000ms">{{ cat }}</span>
+                                                {% endfor %}
+                                                <h2><a href="{% url 'news:detail' pk=mr.id %}" data-animation="fadeInUp" data-delay=".4s" data-duration="1000ms">{{ mr.title|truncatewords:'7' }}</a></h2>
+                                                <p data-animation="fadeInUp" data-delay=".6s" data-duration="1000ms">{{ mr.created_at|date:'F d, Y' }}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% else %}
+                                <!-- Single -->
+                                <div class="single-slider">
+                                    <div class="trending-top mb-30">
+                                        <div class="trend-top-img">
+                                            <img src="{{ mr.image.url }}" alt="">
+                                            <div class="trend-top-cap">
+                                                {% for cat in mr.categories.all %}
+                                                    <span class="bgr" data-animation="fadeInUp" data-delay=".2s" data-duration="1000ms">{{ cat }}</span>
+                                                {% endfor %}
+                                            
+                                                <h2><a href="{% url 'news:detail' pk=mr.id %}" data-animation="fadeInUp" data-delay=".4s" data-duration="1000ms">{{ mr.title|truncatewords:'7' }}</a></h2>
+                                                <p data-animation="fadeInUp" data-delay=".6s" data-duration="1000ms">{{ mr.created_at|date:'F d, Y' }}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                        
+                    </div>
+                </div>
+                <!-- Right content -->
+                <div class="col-lg-4">
+                        <!-- Trending Top -->
+                    <div class="row">
+                        <div class="col-lg-12 col-md-6 col-sm-6">
+                            <div class="trending-top mb-30">
+                                <div class="trend-top-img">
+                                    <img  with="500px" src="{{ mahalliy.image.url }}" alt="">
+                                    <div class="trend-top-cap trend-top-cap2">
+                                        <span class="bgb">Mahalliy</span>
+                                        <h2><a href="{% url 'news:detail' pk=mahalliy.id %}">{{ mahalliy.title|truncatewords:'6' }}</a></h2>
+                                        <p>{{ mahalliy.created_at|date:'F d, Y' }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12 col-md-6 col-sm-6">
+                            <div class="trending-top mb-30">
+                                <div class="trend-top-img">
+                                    <img src="{{ sport.image.url }}" alt="">
+                                    <div class="trend-top-cap trend-top-cap2">
+                                        <span class="bgg">Sport</span>
+                                        <h2><a href="{% url 'news:detail' pk=sport.id %}">{{ sport.title|truncatewords:'6' }}</a></h2>
+                                        <p>{{ sport.created_at|date:'F d, Y' }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Trending Area End -->
+<!-- Whats New Start -->
+<section class="whats-news-area pt-50 pb-20 gray-bg">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+            <div class="whats-news-wrapper">
+                <!-- Heading & Nav Button -->
+                <div class="row justify-content-between align-items-end mb-15">
+                    <div class="col-xl-4">
+                        <div class="section-tittle mb-30">
+                            <h3>O'zbekiston</h3><h5>yangiliklari</h5>
+                        </div>
+                    </div>
+                    <div class="col-xl-8 col-md-9">
+                        
+                    </div>
+                </div>
+                <!-- Tab content -->
+                <div class="row">
+                    <div class="col-12">
+                        <!-- Nav Card -->
+                        <div class="tab-content">
+                            <!-- card one -->
+                            <div class="tab-pane fade show active"  role="tabpanel" aria-labelledby="nav-home-tab">       
+                                <div class="row">
+                                    <!-- Left Details Caption -->
+                                    <div class="col-xl-6 col-lg-12">
+                                        <div class="whats-news-single mb-40 mb-40">
+                                            <div class="whates-img">
+                                                <img src="{{ uzbekistan_new.image.url }}" alt="">
+                                            </div>
+                                            <div class="whates-caption">
+                                                <h4><a href="{% url 'news:detail' pk=uzbekistan_new.id %}">{{ uzbekistan_new.title|truncatewords:'8' }}</a></h4>
+                                                <span>{{ uzbekistan_new.created_at|date:'F d, Y' }}</span>
+                                                <p>{{ uzbekistan_new.body|truncatewords:'13' }}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6 col-lg-12">
+                                        <div class="whats-news-single mb-40 mb-40">
+                                            <div class="whates-img">
+                                                <img src="{{ uzbekistan_new2.image.url }}" alt="">
+                                            </div>
+                                            <div class="whates-caption">
+                                                <h4><a href="{% url 'news:detail' pk=uzbekistan_new2.id %}">{{ uzbekistan_new2.title|truncatewords:'8' }}</a></h4>
+                                                <span>{{ uzbekistan_new2.created_at|date:'F d, Y' }}</span>
+                                                <p>{{ uzbekistan_new2.body|truncatewords:'13' }}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Right single caption -->
+                                    <div class="col-xl-6 col-lg-12">
+                                        <div class="row">
+                                            <!-- single -->
+                                            {% for uz_news in uzbekistan_news %}
+                                                <div class="col-xl-12 col-lg-6 col-md-6 col-sm-10">
+                                                    <div class="whats-right-single mb-20">
+                                                        <div class="whats-right-img">
+                                                            <img width="100px" src="{{ uz_news.image.url }}" alt="">
+                                                        </div>
+                                                        <div class="whats-right-cap">
+                                                            
+                                                            <h4><a href="{% url 'news:detail' pk=uz_news.id %}">{{ uz_news.title|truncatewords:'7' }}</a></h4>
+                                                            <p>{{ uz_news.created_at|date:'F d, Y' }}</p> 
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            {% endfor %}
+                                            
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-5">
+                                        <div class="home-banner2 d-none d-lg-block">
+                                            <img src="{% static 'assets/img/gallery/body' %}_card2.png" alt="">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            
+                            
+                        </div>
+                    <!-- End Nav Card -->
+                    </div>
+                </div>
+            </div>
+            <!-- Banner -->
+            
+            </div>
+            <div class="col-lg-4">
+                <!-- Flow Socail -->
+                <div class="single-follow mb-45">
+                    <div class="single-box">
+                        <div class="follow-us d-flex align-items-center">
+                            <div class="follow-social">
+                                <a href="#"><img src="{% static 'assets/img/news/icon-fb.png' %}" alt=""></a>
+                            </div>
+                            <div class="follow-count">  
+                                <span>8,042</span>
+                                <p>Fans</p>
+                            </div>
+                        </div> 
+                        <div class="follow-us d-flex align-items-center">
+                            <div class="follow-social">
+                                <a href="#"><img src="{% static 'assets/img/news/icon-tw.png' %}" alt=""></a>
+                            </div>
+                            <div class="follow-count">
+                                <span>3,035</span>
+                                <p>Fans</p>
+                            </div>
+                        </div>
+                            <div class="follow-us d-flex align-items-center">
+                            <div class="follow-social">
+                                <a href="#"><img src="{% static 'assets/img/news/icon-ins.png' %}" alt=""></a>
+                            </div>
+                            <div class="follow-count">
+                                <span>2,035</span>
+                                <p>Fans</p>
+                            </div>
+                        </div>
+                        <div class="follow-us d-flex align-items-center">
+                            <div class="follow-social">
+                                <a href="#"><img src="{% static 'assets/img/news/icon-yo.png' %}" alt=""></a>
+                            </div>
+                            <div class="follow-count">
+                                <span>12,321</span>
+                                <p>Fans</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Most Recent Area -->
+                <div class="most-recent-area">
+                    <!-- Section Tittle -->
+                    <div class="small-tittle mb-20">
+                        <h4>Eng so'ngi</h4>
+                    </div>
+                    <!-- Details -->
+                    {% for recent in most_recents %}
+                        {% if forloop.first %}
+                            <div class="most-recent mb-40">
+                                <div class="most-recent-img">
+                                    <img src="{{ recent.image.url }}" alt="">
+                                    <div class="most-recent-cap">
+                                        
+                                        <h4><a href="{% url 'news:detail' pk=recent.id %}">{{ recent.title|slice:'100' }}<br>
+                                            </a></h4>
+                                        <p>{{ recent.created_at|date:'F d, Y' }} </p>
+                                    </div>
+                                </div>
+                            </div>
+                        {% else %}
+                        <!-- Single -->
+                            <div class="most-recent-single">
+                                <div class="most-recent-images">
+                                    <img width="100px" src="{{ recent.image.url }}" alt="">
+                                </div>
+                                <div class="most-recent-capt">
+                                    <h4><a href="{% url 'news:detail' pk=recent.id %}">{{ recent.title|slice:'70' }}...</a></h4>
+                                    <p>{{ recent.created_at|date:'F d, Y' }} </p>
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Whats New End -->
+<!--   Weekly2-News start -->
+<div class="weekly2-news-area pt-50 pb-30 gray-bg">
+    <div class="container">
+        <div class="weekly2-wrapper">
+            <div class="row">
+                <!-- Banner -->
+            
+                <div class="col-lg-12">
+                    <div class="slider-wrapper">
+                        <!-- section Tittle -->
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="small-tittle mb-30">
+                                    <h2 style="font-weight: bold;">Jahon</h2><h6>yangiliklari</h6>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Slider -->
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="weekly2-news-active d-flex">
+                                    <!-- Single -->
+                                    {% for jn in jahon_news %}
+                                        <div class="weekly2-single">
+                                            <div class="weekly2-img">
+                                                <img src="{{ jn.image.url }}" alt="">
+                                            </div>
+                                            <div class="weekly2-caption">
+                                                <h4><a href="{% url 'news:detail' pk=jn.id %}">{{ jn.title|truncatewords:'6' }}</a></h4>
+                                                <p>{{ jn.created_at|date:'F d, Y' }}</p>
+                                            </div>
+                                        </div> 
+                                    {% endfor %}
+                                   
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>           
+<!-- End Weekly-News -->
+
+
+<!--   Weekly3-News start -->
+<div class="weekly3-news-area pt-80 pb-130">
+    <div class="container">
+        <div class="weekly3-wrapper">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h2 style="font-weight: bold;">Iqtisodiyot</h2><h6>yangiliklari</h6><br>
+                    <div class="slider-wrapper">
+                        <!-- Slider -->
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="weekly3-news-active dot-style d-flex">
+                                    {% for iq in iqtisodiyot_news %}
+                                        <div class="weekly3-single">
+                                            <div class="weekly3-img">
+                                                <img src="{{ iq.image.url }}" alt="">
+                                            </div>
+                                            <div class="weekly3-caption">
+                                                <h4><a href="{% url 'news:detail' pk=iq.id %}">{{ iq.title|truncatewords:'6' }}</a></h4>
+                                                <p>{{ iq.created_at|date:'F d, Y' }}</p>
+                                            </div>
+                                        </div> 
+                                    {% endfor %}
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>           
+<!-- End Weekly-News -->
+
+{% endblock %}

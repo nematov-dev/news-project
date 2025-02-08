@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ro'yxatdan o'tish</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: #f8f8f8;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            background: #fff;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            width: 350px;
+            text-align: center;
+        }
+        h2 {
+            color: white;
+            background: #ff4b5c;
+            padding: 10px;
+            border-radius: 6px;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+        .btn {
+            background: #ff4b5c;
+            color: white;
+            border: none;
+            padding: 12px;
+            width: 100%;
+            font-size: 18px;
+            cursor: pointer;
+            border-radius: 6px;
+            transition: 0.3s;
+        }
+        .btn:hover {
+            background: #e04350;
+        }
+        .error {
+            color: red;
+            font-size: 14px;
+        }
+        .login-link {
+            margin-top: 10px;
+            font-size: 14px;
+        }
+        .login-link a {
+            color: #ff4b5c;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="container">
+        <h1>Ro'yxatdan o'tish</h1>
+        
+        {% if messages %}
+            <div class="alert alert-info">
+                {% for message in messages %}
+                    <p style="color: red;">{{ message }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <form id="registerForm" method="post" action="{% url 'users:register' %}" enctype="multipart/form-data">
+            {% csrf_token %}
+            <input name="first_name" type="text" id="firstName" placeholder="Ism" required>
+            <input name="last_name" type="text" id="lastName" placeholder="Familiya" required>
+            <input name="username" type="text" id="lastName" placeholder="Foydalanuvchi nomi" required>
+            <input name="email" type="email" id="email" placeholder="Pochta" required>
+            <input name="password1" type="password" id="password" placeholder="Parol" required>
+            <input name="password2" type="password" id="confirmPassword" placeholder="Parolni tasdiqlash" required>
+            <p>Profil uchun rasm yuklang:</p>
+            
+            <button type="submit" class="btn">Ro'yxatdan o'tish</button>
+        </form>
+        <p class="login-link">Allaqchon hisobingiz bormi? <a href="{% url 'users:login' %}">Tizimga kirish</a></p>
+    </div>
+
+</body>
+</html>

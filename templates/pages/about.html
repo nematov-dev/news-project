@@ -1,0 +1,88 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+
+{% block title %}About{% endblock %}
+{% block content %}
+<div class="about-details section-padding30">
+    <div class="container">
+        <div class="row">
+            <div class="offset-xl-1 col-lg-8">
+                <div class="about-details-cap mb-50">
+                    <h4>Biz haqimizda</h4>
+                    <p> Bizning [news.uz] axborot platformamiz – ishonchli, tezkor va xolis yangiliklar manbai. Dunyo bo‘ylab sodir bo‘layotgan eng muhim voqealar, ijtimoiy, iqtisodiy, siyosiy va madaniy yangiliklarni bir joyga to‘playmiz.</p>
+                </div>
+                <div class="about-details-cap mb-50">
+                    <h4>Bizning maqsadimiz</h4>
+                    <p> Jamiyatni aniq, haqqoniy va xolis ma’lumotlar bilan ta’minlash – bizning asosiy vazifamiz. Biz faqat rasmiy manbalarga tayangan holda yangiliklarni taqdim etamiz va auditoriyamizga ishonchli kontent yetkazishga intilamiz.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--? About Area Start-->
+<div class="support-company-area pt-100 pb-100 section-bg fix" data-background="{% static 'assets/img/gallery/section_bg02.jpg' %}">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-xl-6 col-lg-6">
+                <div class="support-location-img">
+                    <img src="{% static 'assets/img/gallery/about.png' %}" alt="">
+                </div>
+            </div>
+            <div class="col-xl-6 col-lg-6">
+                <div class="right-caption">
+                    <!-- Section Tittle -->
+                    <div class="section-tittles section-tittles2 mb-50">
+                        <span>Nima Uchun Bizni Tanlashadi?</span>
+                        <h2>Bizning xizmatlarimiz</h2>
+                    </div>
+                    <div class="support-caption">
+                        <p class="pera-top">1. Tezkor va dolzarb yangiliklar – Biz sizga eng so‘nggi ma’lumotlarni tezkor yetkazamiz. <br><br>
+                            2. Xolislik va ishonchlilik – Yangiliklarimizni faktlarga asoslangan holda tayyorlaymiz. <br><br>
+                            3. Har tomonlama yondashuv – Turli sohalardagi yangiliklarni qamrab olamiz: jahon, texnologiya, biznes, sport, madaniyat va boshqalar. <br><br>
+                            4. Foydalanuvchi uchun qulay interfeys – Sizga ma’lumotni eng qulay shaklda taqdim etamiz. <br><br>
+                            
+                            - Biz bilan birga eng muhim yangiliklardan xabardor bo‘ling!</p><br><br>
+                        
+                        <a href="{% url 'news:list'%}" class="btn post-btn ">Yangiliklar</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- About Area End-->
+<!-- Team Start -->
+<div class="team-area section-padding30">
+    <div class="container">
+        <div class="row">
+            <div class="cl-xl-7 col-lg-8 col-md-10">
+                <!-- Section Tittle -->
+                <div class="section-tittles mb-70">
+                    <span>Xodimlar</span>
+                    <h2>Bizning jamoa</h2>
+                </div> 
+            </div>
+        </div>
+        <div class="row">
+            <!-- single Tem -->
+            {% for tem in team %}
+                <div class="col-xl-4 col-lg-4 col-md-6 col-sm-">
+                    <div class="single-team mb-30">
+                        <div class="team-img">
+                            <img src="{{ tem.image.url }}" alt="">
+                        </div>
+                        <div class="team-caption">
+                            <h3><a href="#">{{ tem.fullname }}</a></h3>
+                            <span>{{ tem.job }}</span>
+                            
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+            
+        </div>
+    </div>
+</div>
+<!-- Team End -->
+
+{% endblock %}

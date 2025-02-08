@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: #f8f8f8;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            background: #fff;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            width: 350px;
+            text-align: center;
+        }
+        h2 {
+            color: white;
+            background: #ff4b5c;
+            padding: 10px;
+            border-radius: 6px;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+        .btn {
+            background: #ff4b5c;
+            color: white;
+            border: none;
+            padding: 12px;
+            width: 100%;
+            font-size: 18px;
+            cursor: pointer;
+            border-radius: 6px;
+            transition: 0.3s;
+        }
+        .btn:hover {
+            background: #e04350;
+        }
+        .error {
+            color: red;
+            font-size: 14px;
+        }
+        .register-link {
+            margin-top: 10px;
+            font-size: 14px;
+        }
+        .register-link a {
+            color: #ff4b5c;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Tizimga kirish</h1>
+            <!-- Messages display -->
+        {% if messages %}
+            <div class="alert alert-info">
+                {% for message in messages %}
+                    <p style="color: red;">{{ message }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+            
+        <form id="loginForm" method="post" action="{% url 'users:login' %}">
+            {% csrf_token %}
+            <input name="username_or_email" type="text" id="username" placeholder="Foydalanuvchi nomi yoki Email" required>
+            <input name="password" type="password" id="password" placeholder="Parol" required>
+            
+            <button type="submit" class="btn">Kirish</button>
+        </form>
+        <p class="register-link">Hisobingiz yo'qmi? <a href="{% url 'users:register' %}">Ro'yxatdan o'tish</a></p>
+    </div>
+
+</body>
+</html>

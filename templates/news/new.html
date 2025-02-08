@@ -1,0 +1,202 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+
+{% block title %}News{% endblock %}
+{% block content %}
+<!-- About US Start -->
+<div class="about-area2 gray-bg pt-60 pb-60">
+    <div class="container">
+            <div class="row">
+            <div class="col-lg-8">
+                <div class="whats-news-wrapper">
+                    <!-- Heading & Nav Button -->
+                        <div class="row justify-content-between align-items-end mb-15">
+                            <div class="col-xl-4">
+                                <div class="section-tittle mb-30">
+                                    <h3>Yangiliklar</h3>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <!-- Tab content -->
+                        <div class="row">
+                            <div class="col-12">
+                                <!-- Nav Card -->
+                                <div class="tab-content" id="nav-tabContent">
+                                    <!-- card one -->
+                                    {% for new in news %}
+                                        <div class="tab-pane fade show active" role="tabpanel" aria-labelledby="nav-home-tab">       
+                                            <div class="row">
+                                                <div class="col-xl-12 col-lg-12 col-md-12">
+                                                    <div class="whats-news-single mb-40 mb-40">
+                                                        <div class="whates-img">
+                                                            <img src="{{ new.image.url }}" alt="">
+                                                        </div>
+                                                        <div class="whates-caption whates-caption2">
+                                                            <h4><a href="{% url 'news:detail' pk=new.id %}">{{ new.title|truncatewords:'12' }}</a></h4>
+                                                            <span>{{ new.created_at|date:'F d, Y' }}</span>
+                                                            <p>{{ new.body|truncatewords:'30' }} ...</p>
+                                                            <br>
+                                                            <a href="{% url 'news:detail' pk=new.id %}" class="btn post-btn ">Batafsil</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                
+                                            </div>
+                                        </div>
+                                   {% endfor %}
+                                </div>
+                                <!-- End Nav Card -->
+                                <!--Start pagination -->
+                                <div class="pagination-area gray-bg pb-45">
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-xl-12">
+                                                <div class="single-wrap">
+                                                    <nav aria-label="Page navigation example">
+                                                        <ul class="pagination justify-content-center">
+                                                        
+                                                        <!-- Oldinga (prev) tugmasi -->
+                                                        {% if page_obj.has_previous %}
+                                                            <li class="page-item">
+                                                                <a class="page-link" onclick="addUrlParameter('page', {{ page_obj.previous_page_number }} )">
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="45px" height="20px" viewBox="0 0 45 20">
+                                                                        <path fill-rule="evenodd" fill="rgb(255, 0, 0)" d="M5.112,13.118 L4.973,14.136 L0.127,7.646 L0.127,6.623 L4.973,0.132 L5.587,1.153 L2.683,6.413 L41.309,6.413 L41.309,7.856 L2.683,7.856 L5.112,13.118 Z"/>
+                                                                    </svg>
+                                                                </a>
+                                                            </li>
+                                                        {% endif %}
+
+                                                        <!-- Sahifa raqamlari -->
+                                                        {% for page in page_obj.paginator.page_range %}
+                                                            <li class="page-item {% if page == page_obj.number %}active{% endif %}">
+                                                                <a class="page-link {% if page == page_obj.number %}current-page{% endif %}" onclick="addUrlParameter('page', {{ page }} )">{{ page }}</a>
+                                                            </li>
+                                                        {% endfor %}
+
+                                                        <!-- Keyingi (next) tugmasi -->
+                                                        {% if page_obj.has_next %}
+                                                            <li class="page-item">
+                                                                <a class="page-link" onclick="addUrlParameter('page', {{ page_obj.next_page_number }} )">
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="40px" height="15px">
+                                                                        <path fill-rule="evenodd" fill="rgb(255, 0, 0)" d="M31.112,13.118 L32.281,14.136 L39.127,7.646 L39.127,6.624 L32.281,0.132 L31.167,1.154 L36.571,6.413 L0.491,6.413 L0.491,7.857 L36.571,7.857 L31.112,13.118 Z"/>
+                                                                    </svg>
+                                                                </a>
+                                                            </li>
+                                                        {% endif %}
+
+                                                        </ul>
+                                                    </nav>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- End pagination  -->
+                            </div>
+                        </div>
+                </div>
+                </div>
+                      
+                <div class="col-lg-4 blog_right_sidebar">
+                    
+                    <!-- Search-->
+                    <aside class="single_sidebar_widget search_widget">
+                        <form action="{% url 'news:list' %}" method="get">
+                            <div class="form-group">
+                                <div class="input-group mb-3">
+                                    <input type="text" class="form-control" placeholder='Qidiruv' name="q" value="{{ request.GET.q }}"
+                                        onfocus="this.placeholder = ''"
+                                        onblur="this.placeholder = 'Search Keyword'">
+                                    <div class="input-group-append">
+                                        <button class="btns" type="button"><i class="ti-search"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="button rounded-0 primary-bg text-white w-100 btn_1 boxed-btn"
+                                type="submit">Qidirish</button>
+                        </form>
+                    </aside>
+                    <!-- End Search -->
+                    <!-- Category -->
+                    <aside class="single_sidebar_widget post_category_widget">
+                        <h4 class="widget_title">Kategoriyalar</h4>
+                        <ul class="list cat-list">
+                            {% for cat in categories %}
+                                <li>
+                                    <a onclick="addUrlParameter('cat', {{ cat.id }} )" class="d-flex">
+                                        <p>{{ cat.title }}</p>
+                                        <p> ({{ cat.news.count }})</p>
+                                    </a>
+                                </li>
+                            {% endfor %}
+                            
+                        </ul>
+                    </aside>
+                    
+                    <!-- End Category -->
+                    <!-- Recent Post -->
+                    <aside class="single_sidebar_widget popular_post_widget">
+                        <h3 class="widget_title">Eng so'ngi</h3>
+                        {% for rc in recent_posts %}
+                            <div class="media post_item">
+                                <img width="100px" src="{{ rc.image.url }}" alt="post">
+                                <div class="media-body">
+                                    <a href="{% url 'news:detail' pk=rc.id %}">
+                                        <h3>{{ rc.title|slice:'20' }}...</h3>
+                                    </a>
+                                    <p>{{ rc.created_at|date:'F d, Y' }}</p>
+                                </div>
+                            </div>
+                        {% endfor %}
+                        
+                    </aside>
+                    <!-- End Recent-->
+                    <!-- Tag  -->
+                    <aside class="single_sidebar_widget tag_cloud_widget">
+                        <h4 class="widget_title">Teglar</h4>
+                        <ul class="list">
+                            {% for tag in tags %}
+                                <li>
+                                    <a onclick="addUrlParameter('tag', {{ tag.id }} )" >{{ tag.title }}</a>
+                                </li>
+                            {% endfor %}
+                            
+                        </ul>
+                    </aside>
+                    <!-- End Tag -->
+                    <aside class="single_sidebar_widget newsletter_widget">
+                        <h4 class="widget_title">Yangiliklar</h4>
+
+                        <form action="{% url 'news:list' %}" method="post" >
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <input type="email" name="sucribe" class="form-control" onfocus="this.placeholder = ''"
+                                    onblur="this.placeholder = 'Enter email'" placeholder='Emailingiz' required>
+                            </div>
+                            <button class="button rounded-0 primary-bg text-white w-100 btn_1 boxed-btn"
+                                type="submit">Obuna bo'lish</button>
+                        </form>
+                    </aside>
+                </div>
+            </div>
+    </div>
+</div>
+<!-- About US End -->
+
+{% endblock %}
+
+{% block extra_js %}
+    <script>
+        function addUrlParameter(name, value) {
+            let searchParams = new URLSearchParams(window.location.search)
+            if (searchParams.has(name) && searchParams.get(name) == value) {
+                searchParams.delete(name)
+            } else {
+                searchParams.set(name, value)
+            }
+            window.location.search = searchParams.toString()
+        }
+    </script>
+{% endblock %}

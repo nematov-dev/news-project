@@ -1,0 +1,146 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+
+{% block title %}Blog-Detail{% endblock %}
+
+{% block content %}
+<!--================Blog Area =================-->
+<section class="blog_area single-post-area section-padding">
+   <div class="container">
+      <div class="row">
+         <div class="col-lg-8 posts-list">
+            <div class="single-post">
+               <div class="feature-img">
+                  <img class="img-fluid" src="{{ blog.image.url }}" alt="">
+               </div>
+               <div class="blog_details">
+                  <h2>{{ blog.title }}
+                  </h2>
+                  <ul class="blog-info-link mt-3 mb-4">
+                     {% for author in blog.authors.all %}
+                        <li><a href="#"><i class="fa fa-user"></i>{{ author }} </a></li>
+                     {% endfor %}
+                     <li><a href="#"><i class="fa fa-comments"></i>{{ blog.comments.count }} comments</a></li>
+                  </ul>
+                  <p class="excert">
+                     {{ blog.description }}
+                  </p>
+                 
+               </div>
+            </div>
+            
+            
+            <div class="comments-area">
+               <h4>Comments ({{ blog.comments.count }})
+               </h4>
+               {% for comment in blog.comments.all %}
+                  <div class="comment-list">
+                     <div class="single-comment justify-content-between d-flex">
+                        <div class="user justify-content-between d-flex">
+                           <div class="thumb">
+                              <img src="{{ comment.user.profile.image.url }}" alt="">
+                           </div>
+                           <div class="desc">
+                              <p class="comment">
+                                 <h5>{{ comment.comment }}</h5>
+                              </p>
+                              <div class="d-flex justify-content-between">
+                                 <div class="d-flex align-items-center">
+                                    
+                                       
+                                    
+                                    <p class="date">{{ comment.user }} | {{ comment.created_at|date:"d.m.Y, H:i"}} </p>
+                                 </div>
+                                 
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               {% endfor %}
+               
+            </div>
+            <div class="comment-form">
+               <h4>Sharh yozish</h4>
+               <form method="post" class="form-contact comment_form" action="{% url 'blogs:detail' pk=blog.id %}" id="commentForm">
+                  {% csrf_token %}
+                  <div class="row">
+                     <div class="col-12">
+                        <div class="form-group">
+                           <input type="hidden" name="blog_id" value="{{ blog.id }}">
+                           <textarea class="form-control w-100" name="comment" id="comment" cols="30" rows="9"
+                              placeholder="Xabaringiz"></textarea>
+                        </div>
+                     </div>
+                     
+                  </div>
+                  <div class="form-group">
+                     <button type="submit" class="button button-contactForm btn_1 boxed-btn">Xabarni yuborish</button>
+                  </div>
+               </form>
+            </div>
+         </div>
+         <div class="col-lg-4">
+            <div class="blog_right_sidebar">
+               <aside class="single_sidebar_widget search_widget">
+                  <form action="#">
+                     <div class="form-group">
+                        <div class="input-group mb-3">
+                           <input type="text" class="form-control" placeholder='Qidiruv'
+                              onfocus="this.placeholder = ''" onblur="this.placeholder = 'Search Keyword'">
+                           <div class="input-group-append">
+                              <button class="btns" type="button"><i class="ti-search"></i></button>
+                           </div>
+                        </div>
+                     </div>
+                     <button class="button rounded-0 primary-bg text-white w-100 btn_1 boxed-btn"
+                        type="submit">Qidirish</button>
+                  </form>
+               </aside>
+               <aside class="single_sidebar_widget post_category_widget">
+                  <h4 class="widget_title">Kategoriyalar</h4>
+                  <ul class="list cat-list">
+                     {% for cat in categories %}
+                        <li>
+                           <a href="#" class="d-flex">
+                              <p>{{ cat.title }}</p>
+                              <p>({{ cat.blogs.count }})</p>
+                           </a>
+                        </li>
+                     {% endfor %}
+                     
+                  </ul>
+               </aside>
+               <aside class="single_sidebar_widget popular_post_widget">
+                  <h3 class="widget_title">Eng so'ngi</h3>
+                  {% for post in recent_posts %}
+                     <div class="media post_item">
+                        <img width="100px" src="{{ post.image.url }}" alt="post">
+                        <div class="media-body">
+                           <a href="single-blog.html">
+                              <h3>{{ post.title|slice:'20' }}...</h3>
+                           </a>
+                           <p>{{ post.created_at }}</p>
+                        </div>
+                     </div>
+                  {% endfor %}
+                  
+               </aside>
+               <aside class="single_sidebar_widget tag_cloud_widget">
+                  <h4 class="widget_title">Teglar</h4>
+                  <ul class="list">
+                     {% for tag in tags %}
+                        <li>
+                           <a href="#">{{ tag.title }}</a>
+                        </li>
+                     {% endfor %}
+                  </ul>
+               </aside>
+               
+            </div>
+         </div>
+      </div>
+   </div>
+</section>
+<!--================ Blog Area end =================-->
+{% endblock %}

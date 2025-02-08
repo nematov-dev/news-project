@@ -1,0 +1,10 @@
+{% load static %}
+
+<div class="search-model-box">
+    <div class="d-flex align-items-center h-100 justify-content-center">
+        <div class="search-close-btn">+</div>
+        <form class="search-model-form" action="{% url 'news:list' %}">
+            <input type="text" name="q" value="{{ request.GET.q }}" id="search-input" placeholder="Qidiruv">
+        </form>
+    </div>
+</div>

@@ -1,0 +1,164 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+
+{% block title %}Blogs{% endblock %}
+
+{% block content %}
+<section class="blog_area section-padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mb-5 mb-lg-0">
+                <div class="blog_left_sidebar">
+
+                    {% for blog in blogs %}
+
+                        <article class="blog_item">
+                            <div class="blog_item_img">
+                                <img class="card-img rounded-0" src="{{ blog.image.url }}" alt="">
+                                <a href="#" class="blog_item_date">
+                                    <h3>{{blog.created_at|date:"d"}}</h3>
+                                    <p>{{ blog.created_at|date:"F" }}</p>
+                                </a>
+                            </div>
+
+                            <div class="blog_details">
+                                <a class="d-inline-block" href="{% url 'blogs:detail' pk=blog.id %}">
+                                    <h2>{{ blog.title|slice:'50' }}...</h2>
+                                </a>
+                                <p>{{ blog.description|slice:'150' }}...</p>
+                                <ul class="blog-info-link">
+                                    {% for at in blog.authors.all %}
+                                        <li><a href="#"><i class="fa fa-user"></i> {{ at }}</a></li>
+                                    {% endfor %}
+                                    
+                                    <li><a href="#"><i class="fa fa-comments"></i>{{ blog.comments.count }} ta sharhlar</a></li>
+                                </ul>
+                            </div>
+                        </article>
+
+                    {% endfor %}
+
+                    <nav class="blog-pagination justify-content-center d-flex">
+                        <ul class="pagination">
+                            <!-- Oldinga (prev) tugmasi -->
+                            {% if page_obj.has_previous %}
+                                <li class="page-item">
+                                    <a onclick="addUrlParameter('page', {{ page_obj.previous_page_number }} )" class="page-link" aria-label="Previous">
+                                        <i class="ti-angle-left"></i>
+                                    </a>
+                                </li>
+                            {% else %}
+                                <li class="page-item disabled">
+                                    <a href="#" class="page-link" aria-label="Previous">
+                                        <i class="ti-angle-left"></i>
+                                    </a>
+                                </li>
+                            {% endif %}
+                    
+                            <!-- Sahifa raqamlari -->
+                            {% for page_num in page_obj.paginator.page_range %}
+                                <li class="page-item {% if page_num == page_obj.number %}active{% endif %}">
+                                    <a onclick="addUrlParameter('page', {{ page_num }} )" class="page-link">{{ page_num }}</a>
+                                </li>
+                            {% endfor %}
+                    
+                            <!-- Keyingi (next) tugmasi -->
+                            {% if page_obj.has_next %}
+                                <li class="page-item">
+                                    <a onclick="addUrlParameter('page', {{ page_obj.next_page_number }} )" class="page-link" aria-label="Next">
+                                        <i class="ti-angle-right"></i>
+                                    </a>
+                                </li>
+                            {% else %}
+                                <li class="page-item disabled">
+                                    <a href="#" class="page-link" aria-label="Next">
+                                        <i class="ti-angle-right"></i>
+                                    </a>
+                                </li>
+                            {% endif %}
+                        </ul>
+                    </nav>
+                    
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="blog_right_sidebar">
+                    <aside class="single_sidebar_widget search_widget">
+                        <form action="{% url 'blogs:list' %}" method="get">
+                            <div class="form-group">
+                                <div class="input-group mb-3">
+                                    <input type="text" class="form-control" placeholder='Qidiruv' name="q" value="{{ request.GET.q }}"
+                                        onfocus="this.placeholder = ''"
+                                        onblur="this.placeholder = 'Search Keyword'">
+                                    <div class="input-group-append">
+                                        <button class="btns" type="button"><i class="ti-search"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="button rounded-0 primary-bg text-white w-100 btn_1 boxed-btn"
+                                type="submit">Qidirish</button>
+                        </form>
+                    </aside>
+
+                    <aside class="single_sidebar_widget post_category_widget">
+                        <h4 class="widget_title">Kategoriyalar</h4>
+                        <ul class="list cat-list">
+                            {% for cat in categories %}
+                                <li>
+                                    <a onclick="addUrlParameter('cat', {{ cat.id }} )" class="d-flex">
+                                        <p>{{ cat.title }}</p>
+                                        <p> ({{ cat.blogs.count }})</p>
+                                    </a>
+                                </li>
+                            {% endfor %}
+                            
+                        </ul>
+                    </aside>
+
+                    <aside class="single_sidebar_widget popular_post_widget">
+                        <h3 class="widget_title">Eng so'ngi</h3>
+                        {% for rc in recent_posts %}
+                            <div class="media post_item">
+                                <img width="100px" src="{{ rc.image.url }}" alt="post">
+                                <div class="media-body">
+                                    <a href="{% url 'blogs:detail' pk=rc.id %}">
+                                        <h3>{{ rc.title|slice:'20' }}...</h3>
+                                    </a>
+                                    <p>{{ rc.created_at }}</p>
+                                </div>
+                            </div>
+                        {% endfor %}
+                        
+                    </aside>
+                    <aside class="single_sidebar_widget tag_cloud_widget">
+                        <h4 class="widget_title">Teglar</h4>
+                        <ul class="list">
+                            {% for tag in tags %}
+                                <li>
+                                    <a onclick="addUrlParameter('tag', {{ tag.id }} )">{{ tag.title }}</a>
+                                </li>
+                            {% endfor %}
+                            
+                        </ul>
+                    </aside>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+    <script>
+        function addUrlParameter(name, value) {
+            let searchParams = new URLSearchParams(window.location.search)
+            if (searchParams.has(name) && searchParams.get(name) == value) {
+                searchParams.delete(name)
+            } else {
+                searchParams.set(name, value)
+            }
+            window.location.search = searchParams.toString()
+        }
+    </script>
+{% endblock %}

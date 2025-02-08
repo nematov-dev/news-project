@@ -1,0 +1,157 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+
+{% block title %}News-Detail{% endblock %}
+{% block content %}
+<!-- About US Start -->
+<div class="about-area2 gray-bg pt-60 pb-60">
+    <div class="container">
+            <div class="row">
+                <div class="col-lg-8">
+                    <!-- Trending Tittle -->
+                    <div class="about-right mb-90">
+                        <div class="about-img">
+                            <img src="{{ new.image.url }}" alt="">
+                        </div>
+                        <div class="heading-news mb-30 pt-30">
+                            <h3>{{ new.title }}</h3>
+                        </div>
+                        <div class="about-prea">
+                            <p class="about-pera1 mb-25">{{ new.body  }}</p>
+                            <br>
+                            <div class="fa fa-user"> 
+                                {% for author in new.authors.all %}
+                                    <span style="color: #575555;">{{ author }}{% if not forloop.last %}, {% endif %}</span>
+                                {% endfor %} <br><br>
+                                <p class="fa fa-calendar"> <span  style="color: #575555;">Sana: {{ new.created_at|date:'F d, Y' }}</span></p>
+                            </div>
+                        </div>
+                       
+
+                       
+                        <div class="social-share pt-30">
+                            <div class="section-tittle">
+                                <h3 class="mr-20">Ulashish:</h3>
+                                <ul>
+                                    <li><a href="#"><img src="{% static 'assets/img/news/icon-ins.png' %}" alt=""></a></li>
+                                    <li><a href="#"><img src="{% static 'assets/img/news/icon-fb.png' %}" alt=""></a></li>
+                                    <li><a href="#"><img src="{% static 'assets/img/news/icon-tw.png' %}" alt=""></a></li>
+                                    <li><a href="#"><img src="{% static 'assets/img/news/icon-yo.png' %}" alt=""></a></li>
+                                </ul>
+                                
+                            </div>
+                        </div>
+
+                        
+                    </div>
+                    <div class="comments-area">
+                        <h4>Comments ({{ new.comments.count }})
+                        </h4>
+                        {% for comment in new.comments.all %}
+                           <div class="comment-list">
+                              <div class="single-comment justify-content-between d-flex">
+                                 <div class="user justify-content-between d-flex">
+                                    <div class="thumb">
+                                       <img src="{{ comment.user.profile.image.url }}" alt="">
+                                    </div>
+                                    <div class="desc">
+                                       <p class="comment">
+                                          <h5>{{ comment.message }}</h5>
+                                       </p>
+                                       <div class="d-flex justify-content-between">
+                                          <div class="d-flex align-items-center">
+                                             
+                                                
+                                             
+                                             <p class="date">{{ comment.user }} | {{ comment.created_at|date:"d.m.Y, H:i"}} </p>
+                                          </div>
+                                          
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                        {% endfor %}
+                        
+                     </div>
+                     <div class="comment-form">
+                        <h4>Sharh yozish</h4>
+                        <form class="form-contact comment_form" action="{% url 'news:detail' pk=new.id %}" id="commentForm" method="post">
+                            {% csrf_token %}
+                           <div class="row">
+                              <div class="col-12">
+                                 <div class="form-group">
+                                    <input type="hidden" name="news_id" value="{{ new.id }}">
+                                    <textarea class="form-control w-100" name="message" id="comment" cols="30" rows="9"
+                                       placeholder="Xabaringiz"></textarea>
+                                 </div>
+                              </div>
+                              
+                           </div>
+                           <div class="form-group">
+                              <button type="submit" class="button button-contactForm btn_1 boxed-btn">Xabarni yuborish</button>
+                           </div>
+                        </form>
+                     </div>
+                </div>
+
+                
+                <div class="col-lg-4 blog_right_sidebar">
+                    
+                    <!-- Search-->
+                    <aside class="single_sidebar_widget search_widget">
+                        <form action="{% url 'news:list' %}" method="get">
+                            <div class="form-group">
+                                <div class="input-group mb-3">
+                                    <input type="text" class="form-control" placeholder='Qidiruv' name="q" value="{{ request.GET.q }}"
+                                        onfocus="this.placeholder = ''"
+                                        onblur="this.placeholder = 'Search Keyword'">
+                                    <div class="input-group-append">
+                                        <button class="btns" type="button"><i class="ti-search"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="button rounded-0 primary-bg text-white w-100 btn_1 boxed-btn"
+                                type="submit">Qidirish</button>
+                        </form>
+                    </aside>
+                    
+                    
+                    <!-- Recent Post -->
+                    <aside class="single_sidebar_widget popular_post_widget">
+                        <h3 class="widget_title">Eng so'ngi</h3>
+                        {% for rc in recent_posts %}
+                            <div class="media post_item">
+                                <img width="100px" src="{{ rc.image.url }}" alt="post">
+                                <div class="media-body">
+                                    <a href="single-blog.html">
+                                        <h3>{{ rc.title|slice:'20' }}...</h3>
+                                    </a>
+                                    <p>{{ rc.created_at }}</p>
+                                </div>
+                            </div>
+                        {% endfor %}
+                        
+                    </aside>
+                    <!-- End Recent-->
+                    
+                </div>
+            </div>
+    </div>
+</div>
+<!-- About US End -->
+{% endblock %}
+
+{% block extra_js %}
+    <script>
+        function addUrlParameter(name, value) {
+            let searchParams = new URLSearchParams(window.location.search)
+            if (searchParams.has(name) && searchParams.get(name) == value) {
+                searchParams.delete(name)
+            } else {
+                searchParams.set(name, value)
+            }
+            window.location.search = searchParams.toString()
+        }
+    </script>
+{% endblock %}

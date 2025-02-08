@@ -1,0 +1,63 @@
+{% load static %}
+
+<div class="footer-main footer-bg">
+    <div class="footer-area footer-padding">
+        <div class="container">
+            <div class="row d-flex justify-content-between">
+                <div class="col-xl-3 col-lg-3 col-md-5 col-sm-8">
+                    <div class="single-footer-caption mb-50">
+                        <div class="single-footer-caption mb-30">
+                            <!-- logo -->
+                            <div class="footer-logo">
+                                <a href="{% url 'pages:home' %}"><img src="{% static 'assets/img/logo/logo2' %}_footer.png" alt=""></a>
+                            </div>
+                            <div class="footer-tittle">
+                                <div class="footer-pera">
+                                    <p class="info1">"Bizning yangiliklar platformamiz dunyodagi eng muhim voqealar, dolzarb xabarlar va qiziqarli maqolalarni tezkor va ishonchli tarzda taqdim etadi. Xolis axborot va sifatli kontent bizning ustuvor maqsadimiz!"</p>
+                                    <p class="info2">O'zbekiston,Toshkent</p>
+                                    <p class="info2">+998930643571</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-lg-4 col-md-5 col-sm-7">
+                    <div class="single-footer-caption mb-50">
+                        <div class="footer-tittle">
+                            <h4>Eng so'ngi</h4>
+                        </div>
+                        <!-- Popular post -->
+                        {% for fn in news %}
+                            <div class="whats-right-single mb-20">
+                                <div class="whats-right-img">
+                                    <img width="100px" src="{{ fn.image.url }}" alt="">
+                                </div>
+                                <div class="whats-right-cap">
+                                    <h4><a href="{% url 'news:detail' pk=fn.id %}">{{ fn.title|truncatewords:'6' }}</a></h4>
+                                    <p>{{ fn.created_at|date:'F d, Y' }}</p> 
+                                </div>
+                            </div>
+                        {% endfor %}
+                        
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+    <!-- footer-bottom aera -->
+    <div class="footer-bottom-area footer-bg">
+        <div class="container">
+            <div class="footer-border">
+                <div class="row d-flex align-items-center">
+                    <div class="col-xl-12 ">
+                        <div class="footer-copy-right text-center">
+                            <p>
+                                Developer: <a href="https://nematov.uz" target="_blank">Nematov.uz</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
