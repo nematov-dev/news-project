@@ -55,10 +55,11 @@ class UpdatePasswordForm(PasswordChangeForm):
 class UserUpdateForm(forms.ModelForm):
     class Meta:
         model = UserModel
-        fields = ['first_name', 'last_name', 'email']
+        fields = ['first_name', 'last_name','username', 'email',]
         labels = {
             'first_name':'Ism',
             'last_name':'Familiya',
+            'username':'Foydalanuvchi nomi',
             'email':'Pochta'
         }
 
