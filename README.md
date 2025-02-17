@@ -1,8 +1,8 @@
-S-News Website - Overview
+S-News.uz Website - Overview
 
 About the Website
 
-The S-News website is a dynamic platform where users can read the latest news, blogs, and engage with content by commenting on posts. 
+The S-News.uz website is a dynamic platform where users can read the latest news, blogs, and engage with content by commenting on posts. 
 It offers a rich, interactive experience for visitors, enabling them to sign up, create accounts, and manage their profiles.
 
 
@@ -37,20 +37,9 @@ Frontend: HTML, CSS, JavaScript
 Backend: Python, Django framework
 Database: PostgreSQL
 
-Screenshots
+Installation
+To run this project locally:
 
-Home Page
-![image](https://github.com/user-attachments/assets/775d03b6-b842-4b10-b174-8f3bafb980da)
+Clone the repository:
 
-User Registration
-![image](https://github.com/user-attachments/assets/f3cfb2af-30b7-449a-85b8-a118c4e19ee0)
 
-Login Page
-![image](https://github.com/user-attachments/assets/002f179b-3c50-4d48-b54d-851ecc544135)
-
-Profile Edit
-![image](https://github.com/user-attachments/assets/4e506e1e-eff9-4ccd-b3bb-1fe83ea307bf)
-
-News and Blog Post Page
-![image](https://github.com/user-attachments/assets/de07da56-b775-4623-b816-de9713aa2dc2)
-![image](https://github.com/user-attachments/assets/2bc20a07-a8bb-450a-9e48-5ed5200da220)
