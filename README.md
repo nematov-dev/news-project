@@ -41,5 +41,16 @@ Installation
 To run this project locally:
 
 Clone the repository:
+git clone https://github.com/nematov-dev/news-project.git
 
+Moving to the Project Directory:
+cd news-project
 
+Installing Required Libraries:
+pip install -r requirements.txt
+
+Updating the Database:
+python manage.py migrate
+
+Starting the Local Server:
+python manage.py runserver
