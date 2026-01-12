@@ -1,56 +1,118 @@
-S-News.uz Website - Overview
+# 📰 S-News.uz Website - Overview
 
-About the Website
+## About the Website
 
-The S-News.uz website is a dynamic platform where users can read the latest news, blogs, and engage with content by commenting on posts. 
-It offers a rich, interactive experience for visitors, enabling them to sign up, create accounts, and manage their profiles.
+The S-News.uz website is a dynamic platform where users can read the latest news and blogs, as well as engage with content by commenting on posts.  
+It provides a rich, interactive experience for visitors, allowing them to sign up, create accounts, and manage their profiles.
 
+---
 
-Features
+## Features
 
-User Registration and Account Creation
-Users can sign up to create an account by providing basic information such as name, email, and password.
-After registration, users can log in to access personalized content and manage their profiles.
-Login
-Registered users can log in to their accounts using their credentials (email and password).
-Profile Management
-Users can edit their profile details after logging in, such as their name, email, and password.
-News and Blog Reading
-The site provides a variety of news articles and blog posts in different categories for users to read.
-Commenting on Posts
-Registered users can leave comments on both news articles and blogs, fostering interaction with the community.
+### User Registration and Account Creation
+- Users can sign up to create an account by providing basic information such as name, email, and password.
+- After registration, users can log in to access personalized content and manage their profiles.
 
-How to Use
+### Login
+- Registered users can log in to their accounts using their credentials (email and password).
 
-Sign up / Register
-To begin using the site, you need to register by filling out a simple registration form.
-Login
-Once registered, log in with your credentials (email and password).
-Edit Profile
-After logging in, visit your profile section to update your details.
-Comment on Blogs
-Browse news and blogs and leave your thoughts in the comment section.
+### Profile Management
+- Users can edit their profile details after logging in, including name, email, and password.
 
-Technologies Used
+### News and Blog Reading
+- The website provides a variety of news articles and blog posts in different categories for users to read.
 
-Frontend: HTML, CSS, JavaScript
-Backend: Python, Django framework
-Database: PostgreSQL
+### Commenting on Posts
+- Registered users can leave comments on both news articles and blogs, fostering interaction with the community.
 
-Installation
+---
+
+## How to Use
+
+1. **Sign Up / Register**  
+   Fill out the registration form to create a new account.
+
+2. **Login**  
+   Log in with your registered email and password.
+
+3. **Edit Profile**  
+   After logging in, navigate to your profile section to update your details.
+
+4. **Comment on Blogs**  
+   Browse news and blog posts and leave your thoughts in the comment section.
+
+---
+
+## Technologies Used
+
+- **Frontend:** HTML, CSS, JavaScript  
+- **Backend:** Python, Django framework  
+- **Database:** PostgreSQL  
+
+---
+
+## Installation
+
 To run this project locally:
 
-Clone the repository:
+1. **Clone the repository:**
+
+```bash
 git clone https://github.com/nematov-dev/news-project.git
+```
 
-Moving to the Project Directory:
+2. **Move to the project directory:**
+
+```bash
 cd news-project
+```
 
-Installing Required Libraries:
+3. **Install required libraries:**
+
+```bash
 pip install -r requirements.txt
+```
 
-Updating the Database:
+4. **Update the database:**
+
+```bash
 python manage.py migrate
+```
 
-Starting the Local Server:
+5. **Start the local server:**
+
+```bash
 python manage.py runserver
+```
+
+Once the server is running, open your browser and navigate to `http://127.0.0.1:8000` to access the website.
+
+---
+
+## Project Structure
+
+```
+app_blogs/          # Blog management app
+app_common/         # Common utilities and templates
+app_news/           # News management app
+app_pages/          # Static pages (about, contact, etc.)
+app_users/          # User registration, authentication, and profile management
+assets/assets/      # Frontend assets (CSS, JS, images)
+media/profile_pics/ # User profile pictures
+templates/          # HTML templates
+manage.py           # Django management script
+requirements.txt    # Python dependencies
+README.md           # Project overview
+```
+
+---
+
+## Author
+
+👤 [Saidakbar Nematov](https://nematov.uz)  
+
+---
+
+## License
+
+This project is intended for **educational and demonstration purposes**.
