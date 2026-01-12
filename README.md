@@ -1,4 +1,4 @@
-# 📰 S-News.uz Website - Overview
+# 📰 **[S-News.uz](https://s-news.uz)** Website - Overview
 
 ## About the Website
 
